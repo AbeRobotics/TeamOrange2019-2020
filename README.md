@@ -1,6 +1,6 @@
 ## NOTICE
 
-This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season. It was created by FIRST and imported into our repository for our peronal use.
+This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season. It was created by FIRST and imported into our repository for our personal use.
 
 To access the team code, go through /TeamCode/src/main/java/org/firstinspires/ftc/teamcode/ to access the files. The README will have information if it is your first time accessing the repository.
 
