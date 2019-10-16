@@ -17,7 +17,7 @@ public class sampleTeleOp extends OpMode
 	double leftPower;
 	double rightPower;
 	
-	@Overide
+	@Override
 	//initializes motors, servos, etc.
 	//will show as the "init" button on phone
 	public void init()
@@ -31,7 +31,7 @@ public class sampleTeleOp extends OpMode
 		backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 	
-	@Overide
+	@Override
 	//everything inside this method is looped until STOP is pressed on phone
 	//will show as the play button on the phone
 	public void loop()
