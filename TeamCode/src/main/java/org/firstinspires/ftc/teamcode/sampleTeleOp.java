@@ -17,9 +17,9 @@ public class sampleTeleOp extends OpMode
 	double leftPower;
 	double rightPower;
 	
-	@overide
+	@Overide
 	//initializes motors, servos, etc.
-	//will show as the "intit" button on phone
+	//will show as the "init" button on phone
 	public void init()
 	{
 		//initializes each motor and assigns it a name on the phone
@@ -31,11 +31,12 @@ public class sampleTeleOp extends OpMode
 		backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 	}
 	
-	@overide
+	@Overide
 	//everything inside this method is looped until STOP is pressed on phone
 	//will show as the play button on the phone
 	public void loop()
 	{
+		//sets the power of the wheels according to the y position on the left and right stick of the controller
 		leftPower = gamepad1.left_stick_y;
 		rightPower = gamepad1.right_stick_y;
 		
