@@ -1,8 +1,12 @@
-## NOTICE
+## READ FIRST
 
 This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season. It was created by FIRST and imported into our repository for our personal use.
 
 To access the team code, go through /TeamCode/src/main/java/org/firstinspires/ftc/teamcode/ to access the files. The README will have information if it is your first time accessing the repository.
+
+For people that are either new to java or coding in general, below are links to websites that will help with learning the code:
+[Learn Java](https://www.learnjavaonline.org)
+[GeeksforGeeks](https://www.geeksforgeeks.org/java-how-to-start-learning-java/)
 
 Below is an introduction by FIRST if you wish to read it, but it is not entirely necessary.
 
