@@ -14,4 +14,3 @@ If you wish to upload a piece of code you've created, make sure you are uploadin
 ## IMPORTANT
 
 Even though it is not necessary to import the repository into your workspace to start coding, it might be helpfull to certain people who don't wan't constant errors on their screen. Since this code was ment to be used with Android Studio instead of eclipse or any other IDE, there will be some errors that will not go away. This is fine though, as we are only going to be importing the code onto the phones from the laptop
-TEST
