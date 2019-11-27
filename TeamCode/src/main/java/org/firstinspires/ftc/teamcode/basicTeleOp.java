@@ -17,6 +17,8 @@ public class basicTeleOp extends OpMode
     double leftPower;
     double rightPower;
 
+    final double POWERCOEFFICIENT = 1.5;
+
     @Override
     public void init()
     {
@@ -38,24 +40,27 @@ public class basicTeleOp extends OpMode
 
         while(gamepad1.left_stick_y != 0)
         {
-            frontLeft.setPower(gamepad1.left_stick_y);
-            backLeft.setPower(gamepad1.left_stick_y);
-            frontRight.setPower(gamepad1.left_stick_y);
-            backRight.setPower(gamepad1.left_stick_y);
+            frontLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
+            backLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
         }
-        while(gamepad1.left_stick_x != 0)
+        while(gamepad1.right_stick_y != 0)
         {
-            frontLeft.setPower(gamepad1.left_stick_x);
-            backLeft.setPower(gamepad1.left_stick_x);
-            frontRight.setPower(gamepad1.left_stick_x * -1);
-            backRight.setPower(gamepad1.left_stick_x * -1);
+            frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
+            backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
         }
-        while(gamepad1.right_stick_x != 0)
+        while(gamepad1.dpad_left == true)
         {
-            frontLeft.setPower(gamepad1.right_stick_x * -1);
-            backLeft.setPower(gamepad1.right_stick_x);
-            frontRight.setPower(gamepad1.right_stick_x);
-            backRight.setPower(gamepad1.right_stick_x * -1);
+            frontLeft.setPower(-1 * POWERCOEFFICIENT);
+            backLeft.setPower(1 * POWERCOEFFICIENT);
+            frontRight.setPower(1 * POWERCOEFFICIENT);
+            backRight.setPower(-1 * POWERCOEFFICIENT);
+        }
+        while(gamepad1.dpad_right == true)
+        {
+            frontLeft.setPower(1 * POWERCOEFFICIENT);
+            backLeft.setPower(-1 * POWERCOEFFICIENT);
+            frontRight.setPower(-1 * POWERCOEFFICIENT);
+            backRight.setPower(1 * POWERCOEFFICIENT);
         }
 
     }
