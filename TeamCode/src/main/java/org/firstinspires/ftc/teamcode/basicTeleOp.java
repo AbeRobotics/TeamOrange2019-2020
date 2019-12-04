@@ -14,10 +14,7 @@ public class basicTeleOp extends OpMode
     DcMotor backLeft;
     DcMotor backRight;
 
-    double leftPower;
-    double rightPower;
-
-    final double POWERCOEFFICIENT = 1.5;
+    final double POWERCOEFFICIENT = 1;
 
     @Override
     public void init()
@@ -33,29 +30,19 @@ public class basicTeleOp extends OpMode
     @Override
     public void loop()
     {
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        frontLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
+        backLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
+        frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
+        backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
 
-        while(gamepad1.left_stick_y != 0)
-        {
-            frontLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
-            backLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
-        }
-        while(gamepad1.right_stick_y != 0)
-        {
-            frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
-            backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
-        }
-        while(gamepad1.dpad_left == true)
+        if(gamepad1.dpad_left == true)
         {
             frontLeft.setPower(-1 * POWERCOEFFICIENT);
             backLeft.setPower(1 * POWERCOEFFICIENT);
             frontRight.setPower(1 * POWERCOEFFICIENT);
             backRight.setPower(-1 * POWERCOEFFICIENT);
         }
-        while(gamepad1.dpad_right == true)
+        if(gamepad1.dpad_right == true)
         {
             frontLeft.setPower(1 * POWERCOEFFICIENT);
             backLeft.setPower(-1 * POWERCOEFFICIENT);
