@@ -48,14 +48,14 @@ public class basicTeleOp extends OpMode
             frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
             backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
         }
-        while(gamepad1.dpad_left == true)
+        while(gamepad1.dpad_left)
         {
             frontLeft.setPower(-1 * POWERCOEFFICIENT);
             backLeft.setPower(1 * POWERCOEFFICIENT);
             frontRight.setPower(1 * POWERCOEFFICIENT);
             backRight.setPower(-1 * POWERCOEFFICIENT);
         }
-        while(gamepad1.dpad_right == true)
+        while(gamepad1.dpad_right)
         {
             frontLeft.setPower(1 * POWERCOEFFICIENT);
             backLeft.setPower(-1 * POWERCOEFFICIENT);
