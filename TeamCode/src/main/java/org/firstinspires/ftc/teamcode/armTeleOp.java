@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@TeleOp(name="Arm Test", group="LinearOpMode")
+
 public class armTeleOp extends OpMode
 {
     DcMotor frontLeft;
@@ -35,21 +37,21 @@ public class armTeleOp extends OpMode
         frontRight.setPower(0);
         backRight.setPower(0);
 
-        while(gamepad1.left_stick_y != 0)
+        if(gamepad1.left_stick_y != 0)
         {
             frontLeft.setPower(gamepad1.left_stick_y);
             backLeft.setPower(gamepad1.left_stick_y);
             frontRight.setPower(gamepad1.left_stick_y);
             backRight.setPower(gamepad1.left_stick_y);
         }
-        while(gamepad1.left_stick_x != 0)
+        if(gamepad1.left_stick_x != 0)
         {
             frontLeft.setPower(gamepad1.left_stick_x);
             backLeft.setPower(gamepad1.left_stick_x);
             frontRight.setPower(gamepad1.left_stick_x * -1);
             backRight.setPower(gamepad1.left_stick_x * -1);
         }
-        while(gamepad1.right_stick_x != 0)
+        if(gamepad1.right_stick_x != 0)
         {
             frontLeft.setPower(gamepad1.right_stick_x * -1);
             backLeft.setPower(gamepad1.right_stick_x);

@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.os.AsyncTask;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TestTask extends TaskBase{
+public class BlockGrabTask_Beta extends TaskBase_Beta{
 
     private boolean statusCompletion = false;
 
@@ -21,17 +19,24 @@ public class TestTask extends TaskBase{
     public void performTask(Speed speed)
     {
         super.performTask(speed);
-        move360(wheelPower);
+        super.move(Direction.Forward);
+        sleep(5000);
+        resetMotors();
+        BlockGrab();
+        sleep(3000);
+        super.move(Direction.Backward);
+        resetMotors();
+        super.halfTurn(Direction.Left);
+        sleep(5000);
+        resetMotors();
+        super.move(Direction.Forward);
         sleep(5000);
         resetMotors();
         statusCompletion = true;
     }
 
-    private void move360(double power) {
-        frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(power);
-        backRight.setPower(-power);
+    private void BlockGrab() {
+        claw.setPosition(CLOSED_CLAW);
     }
 
     public boolean getStatus() {
