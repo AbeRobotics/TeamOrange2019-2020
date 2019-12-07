@@ -67,11 +67,11 @@ public class Comp_TeleOp_Beta extends OpMode
             frontRight.setPower(-1 * POWERCOEFFICIENT);
             backRight.setPower(1 * POWERCOEFFICIENT);
         }
-        if(gamepad1.y == true)
+        if(gamepad1.a == true)
         {
             lift.setPower(0.5);
         }
-        if(gamepad1.a == true)
+        if(gamepad1.y == true)
         {
             lift.setPower(-0.5);
         }

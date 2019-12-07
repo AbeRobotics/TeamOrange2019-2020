@@ -8,8 +8,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 public class TaskBase_Beta
 {
 
@@ -21,6 +19,14 @@ public class TaskBase_Beta
     DcMotor lift;
 
     Servo claw;
+
+    Direction forward = Direction.Forward;
+    Direction backward = Direction.Backward;
+    Direction left = Direction.Left;
+    Direction right = Direction.Right;
+
+    Position open = Position.Open;
+    Position closed = Position.Closed;
 
     final double OPEN_CLAW = 0;
     final double CLOSED_CLAW = 1;
@@ -38,6 +44,11 @@ public class TaskBase_Beta
     public enum Direction
     {
         Left, Right, Forward, Backward;
+    }
+
+    public enum Position
+    {
+        Open, Closed
     }
 
     public void Init(Telemetry telemetry, HardwareMap hardwareMap)
@@ -64,32 +75,69 @@ public class TaskBase_Beta
 
     public void halfTurn(Direction direction)
     {
-        int directionCoefficient = 1;
+        int directionCoefficient = 0;
 
         switch (direction)
         {
             case Left:
                 directionCoefficient = 1;
+                break;
             case Right:
                 directionCoefficient = -1;
+                break;
         }
 
-        frontLeft.setPower(-1 * directionCoefficient);
-        frontRight.setPower(-1 * directionCoefficient);
-        backLeft.setPower(1 * directionCoefficient);
-        backRight.setPower(1 * directionCoefficient);
+        frontLeft.setPower(-wheelPower * directionCoefficient);
+        frontRight.setPower(wheelPower * directionCoefficient);
+        backLeft.setPower(-wheelPower * directionCoefficient);
+        backRight.setPower(wheelPower * directionCoefficient);
+
+        sleep(2500);
     }
 
     public void move(Direction direction)
     {
-        int directionCoefficient = 1;
-
         switch (direction)
         {
             case Forward:
-                directionCoefficient = 1;
+                frontLeft.setPower(wheelPower);
+                frontRight.setPower(wheelPower);
+                backLeft.setPower(wheelPower);
+                backRight.setPower(wheelPower);
+                break;
             case Backward:
-                directionCoefficient = -1;
+                frontLeft.setPower(-wheelPower);
+                frontRight.setPower(-wheelPower);
+                backLeft.setPower(-wheelPower);
+                backRight.setPower(-wheelPower);
+                break;
+            case Left:
+                frontLeft.setPower(-wheelPower);
+                frontRight.setPower(wheelPower);
+                backLeft.setPower(wheelPower);
+                backRight.setPower(-wheelPower);
+                break;
+            case Right:
+                frontLeft.setPower(wheelPower);
+                frontRight.setPower(-wheelPower);
+                backLeft.setPower(-wheelPower);
+                backRight.setPower(wheelPower);
+                break;
+        }
+
+
+    }
+
+    public void setClawPosition(Position p)
+    {
+        switch (p)
+        {
+            case Open:
+                claw.setPosition(OPEN_CLAW);
+                break;
+            case Closed:
+                claw.setPosition(CLOSED_CLAW);
+                break;
         }
     }
 
@@ -99,13 +147,13 @@ public class TaskBase_Beta
         {
             case Fast:
                 wheelPower = 1;
-
+                break;
             case Slow:
                 wheelPower = 0.2;
-
+                break;
             case Intermediate:
                 wheelPower = 0.5;
-
+                break;
         }
     }
 
