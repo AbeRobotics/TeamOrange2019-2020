@@ -14,23 +14,32 @@ public class TaskFoundationMove_Beta extends TaskBase_Beta
         statusCompletion = false;
     }
 
-    @Override
-    public void performTask(Speed speed)
+    public void performTask(Speed speed, Team team)
     {
         super.performTask(speed);
 
-        super.move(forward);
+        move(forward);
         sleep(1600);
         resetMotors();
 
-        super.move(left);
-        sleep(900);
-        resetMotors();
+        switch (team)
+        {
+            case Red:
+                move(left);
+                sleep(500);
+                resetMotors();
+                break;
+            case Blue:
+                move(right);
+                sleep(500);
+                resetMotors();
+                break;
+        }
 
-        super.setClawPosition(closed);
+        setClawPosition(closed);
         sleep(1000);
 
-        super.move(backward);
+        move(backward);
         sleep(1600);
         resetMotors();
 

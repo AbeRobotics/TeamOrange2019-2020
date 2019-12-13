@@ -51,6 +51,11 @@ public class TaskBase_Beta
         Open, Closed
     }
 
+    public enum Team
+    {
+        Red, Blue
+    }
+
     public void Init(Telemetry telemetry, HardwareMap hardwareMap)
     {
 
@@ -68,9 +73,7 @@ public class TaskBase_Beta
 
         claw = hardwareMap.servo.get("claw");
         claw.setDirection(Servo.Direction.REVERSE);
-        //claw.setPosition(OPEN_CLAW);
-
-        this.wheelPower = wheelPower;
+        //claw.setPosition(claw.getPosition());
     }
 
     public void halfTurn(Direction direction)
@@ -92,7 +95,7 @@ public class TaskBase_Beta
         backLeft.setPower(-wheelPower * directionCoefficient);
         backRight.setPower(wheelPower * directionCoefficient);
 
-        sleep(2500);
+        sleep(1500);
     }
 
     public void move(Direction direction)
@@ -124,8 +127,6 @@ public class TaskBase_Beta
                 backRight.setPower(wheelPower);
                 break;
         }
-
-
     }
 
     public void setClawPosition(Position p)
@@ -149,7 +150,7 @@ public class TaskBase_Beta
                 wheelPower = 1;
                 break;
             case Slow:
-                wheelPower = 0.2;
+                wheelPower = 0.3;
                 break;
             case Intermediate:
                 wheelPower = 0.5;

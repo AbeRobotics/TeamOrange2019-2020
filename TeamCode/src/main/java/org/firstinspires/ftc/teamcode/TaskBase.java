@@ -25,6 +25,15 @@ public class TaskBase
     {
         Fast, Intermediate, Slow;
     }
+    public enum Direction
+    {
+        Left, Right, Forward, Backward;
+    }
+
+    public enum Position
+    {
+        Open, Closed
+    }
 
     public void Init(Telemetry telemetry, HardwareMap hardwareMap)
     {
