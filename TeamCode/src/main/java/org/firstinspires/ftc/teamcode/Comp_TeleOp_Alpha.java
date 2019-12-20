@@ -26,11 +26,6 @@ public class Comp_TeleOp_Alpha extends OpMode
 
     final double POWERCOEFFICIENT = 1.5;
 
-
-    //Angle of the arm
-    final double INITIAL_ANGLE = 180; //A filler angle
-    double angle = INITIAL_ANGLE;
-
     @Override
     public void init()
     {
@@ -77,18 +72,25 @@ public class Comp_TeleOp_Alpha extends OpMode
             backRight.setPower(1 * POWERCOEFFICIENT);
         }
 
-        if (gamepad1.left_trigger > 0)
+        if (gamepad1.left_trigger > 0 || (gamepad2.left_trigger > 0 && !(gamepad1.right_trigger > 0)))
         {
             // Release Block
             right_claw.setPosition(OPEN_CLAW);
             left_claw.setPosition(OPEN_CLAW);
         }
-        if (gamepad1.right_trigger > 0)
+        if (gamepad1.right_trigger > 0 || (gamepad2.right_trigger > 0 && !(gamepad1.left_trigger > 0)))
         {
             // Grab Block
             right_claw.setPosition(CLOSED_CLAW);
             left_claw.setPosition(CLOSED_CLAW);
         }
+
+        wrist.setPower(gamepad2.right_stick_y);
+        arm.setPower(gamepad2.left_stick_y);
+
+        //DEPRECATED SOLO CONTROLS
+
+        /*
         if (gamepad1.dpad_up)
         {
             wrist.setPower(1);
@@ -105,25 +107,6 @@ public class Comp_TeleOp_Alpha extends OpMode
         {
             arm.setPower(-1);
         }
-
-    }
-    //Returns the power needed in order to keep the arm from lowering after the player stops pushing the raise-arm button
-    //In order for the method to work we need to maintain the power
-    public double getNeededPower(double currentPower) {
-        double neededPower = currentPower;
-        final double CHANGE_IN_POWER = 10.0;
-        //Calculate needed power
-        boolean lowering = false;
-        while (!lowering) {
-            //Lower the power
-            neededPower -= currentPower;
-            //In order to determine whether the arm is lowering we need to utilize the motors feed back.
-            //If the angle of rotation is increasing then the arm is still going up
-            //Otherwise the angle is going down in which case we can break from the while loop
-        }
-        //If the arm starts to lower we know we have found the threshold power and therefore we know how much power we need to apply in order to keep the arm stable
-
-        return neededPower + CHANGE_IN_POWER;
-
+        */
     }
 }

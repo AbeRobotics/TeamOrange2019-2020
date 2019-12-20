@@ -31,7 +31,7 @@ public class TaskBase_Beta
     final double OPEN_CLAW = 0;
     final double CLOSED_CLAW = 1;
 
-    public double wheelPower = 1;
+    protected double wheelPower = 1;
 
     public Telemetry telemetry;
     private HardwareMap hardwareMap;
@@ -62,18 +62,25 @@ public class TaskBase_Beta
         this.telemetry = telemetry;
         this.hardwareMap = hardwareMap;
 
+        //Initialize Wheels
+
         this.frontLeft = hardwareMap.dcMotor.get("front_left");
         this.frontRight = hardwareMap.dcMotor.get("front_right");
-        this.frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         this.backLeft = hardwareMap.dcMotor.get("back_left");
         this.backRight = hardwareMap.dcMotor.get("back_right");
+
+        //Reverse Wheels
+
         this.backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         lift = hardwareMap.dcMotor.get("lift");
 
         claw = hardwareMap.servo.get("claw");
         claw.setDirection(Servo.Direction.REVERSE);
         //claw.setPosition(claw.getPosition());
+
+        this.wheelPower = wheelPower;
     }
 
     public void halfTurn(Direction direction)
@@ -103,12 +110,16 @@ public class TaskBase_Beta
         switch (direction)
         {
             case Forward:
+                telemetry.addData("Forward Called Test", "True");
+                telemetry.update();
                 frontLeft.setPower(wheelPower);
                 frontRight.setPower(wheelPower);
                 backLeft.setPower(wheelPower);
                 backRight.setPower(wheelPower);
                 break;
             case Backward:
+                telemetry.addData("Backward Called Test", "True");
+                telemetry.update();
                 frontLeft.setPower(-wheelPower);
                 frontRight.setPower(-wheelPower);
                 backLeft.setPower(-wheelPower);
@@ -127,6 +138,8 @@ public class TaskBase_Beta
                 backRight.setPower(wheelPower);
                 break;
         }
+
+
     }
 
     public void setClawPosition(Position p)
@@ -150,7 +163,7 @@ public class TaskBase_Beta
                 wheelPower = 1;
                 break;
             case Slow:
-                wheelPower = 0.3;
+                wheelPower = 0.2;
                 break;
             case Intermediate:
                 wheelPower = 0.5;

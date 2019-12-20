@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TaskBlockGrab_Beta extends TaskBase_Beta
-{
+public class TaskBlockGrab_Beta extends TaskBase_Beta{
 
     private boolean statusCompletion;
 
@@ -16,47 +15,29 @@ public class TaskBlockGrab_Beta extends TaskBase_Beta
 
     }
 
-    //@Override
-    public void performTask(Speed speed, Team team)
+    @Override
+    public void performTask(Speed speed)
     {
         super.performTask(speed);
 
-        move(forward);
-        sleep(1800);
+        super.move(forward);
+        sleep(3000);
         resetMotors();
 
-        setClawPosition(closed);
-        sleep(1800);
+        super.setClawPosition(closed);
+        sleep(3000);
 
-        move(backward);
-        sleep(900);
+        super.move(backward);
+        sleep(3000);
         resetMotors();
-        switch (team)
-        {
-            case Red:
-                move(right);
-                sleep(2400);
-                resetMotors();
 
-                setClawPosition(open);
-                sleep(1800);
+        super.halfTurn(left);
+        resetMotors();
 
-                move(left);
-                sleep(1200);
-                resetMotors();
+        super.move(forward);
+        sleep(3000);
+        resetMotors();
 
-            case Blue:
-                move(left);
-                sleep(2400);
-                resetMotors();
-
-                setClawPosition(open);
-                sleep(1800);
-
-                move(right);
-                sleep(1200);
-                resetMotors();
-        }
         statusCompletion = true;
     }
 

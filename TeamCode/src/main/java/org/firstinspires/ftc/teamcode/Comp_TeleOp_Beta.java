@@ -19,7 +19,7 @@ public class Comp_TeleOp_Beta extends OpMode
 
     Servo claw;
 
-    final double OPEN_CLAW = 0.3;
+    final double OPEN_CLAW = 0;
     final double CLOSED_CLAW = 1;
 
     final double POWERCOEFFICIENT = 1.5;
@@ -38,6 +38,7 @@ public class Comp_TeleOp_Beta extends OpMode
 
         claw = hardwareMap.servo.get("claw");
         claw.setDirection(Servo.Direction.REVERSE);
+        //claw.setPosition(claw.getPosition());
 
         boolean open = false;
     }
@@ -52,14 +53,14 @@ public class Comp_TeleOp_Beta extends OpMode
         frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
         backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
 
-        while(gamepad1.dpad_right == true)
+        if(gamepad1.dpad_right == true)
         {
             frontLeft.setPower(-1 * POWERCOEFFICIENT);
             backLeft.setPower(1 * POWERCOEFFICIENT);
             frontRight.setPower(1 * POWERCOEFFICIENT);
             backRight.setPower(-1 * POWERCOEFFICIENT);
         }
-        while(gamepad1.dpad_left == true)
+        if(gamepad1.dpad_left == true)
         {
             frontLeft.setPower(1 * POWERCOEFFICIENT);
             backLeft.setPower(-1 * POWERCOEFFICIENT);
@@ -70,15 +71,10 @@ public class Comp_TeleOp_Beta extends OpMode
         {
             lift.setPower(0.5);
         }
-        else if(gamepad1.y == true)
+        if(gamepad1.y == true)
         {
             lift.setPower(-0.5);
         }
-        else
-        {
-            lift.setPower(0);
-        }
-
         if(gamepad1.b)
         {
             claw.setPosition(CLOSED_CLAW);

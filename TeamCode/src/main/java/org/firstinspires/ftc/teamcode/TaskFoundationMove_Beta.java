@@ -26,12 +26,12 @@ public class TaskFoundationMove_Beta extends TaskBase_Beta
         {
             case Red:
                 move(left);
-                sleep(500);
+                sleep(900);
                 resetMotors();
                 break;
             case Blue:
                 move(right);
-                sleep(500);
+                sleep(900);
                 resetMotors();
                 break;
         }
