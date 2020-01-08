@@ -20,11 +20,16 @@ public class Comp_TeleOp_Alpha extends OpMode
 
     Servo right_claw;
     Servo left_claw;
+    Servo lift;
 
-    final double OPEN_CLAW = 0.5;
+    final double OPEN_CLAW = 1;
     final double CLOSED_CLAW = 0;
+    final double UP = 0.7;
+    final double DOWN = 1;
 
-    final double POWERCOEFFICIENT = 1.5;
+    final double POWERCOEFFICIENT = 1;
+
+    boolean twoPlayersActive = true;
 
     @Override
     public void init()
@@ -44,6 +49,9 @@ public class Comp_TeleOp_Alpha extends OpMode
         left_claw = hardwareMap.servo.get("left_claw");
         right_claw.setPosition(CLOSED_CLAW);
         left_claw.setPosition(CLOSED_CLAW);
+
+        lift = hardwareMap.servo.get("lift");
+        lift.setPosition(UP);
     }
 
     @Override
@@ -71,42 +79,57 @@ public class Comp_TeleOp_Alpha extends OpMode
             frontRight.setPower(-1 * POWERCOEFFICIENT);
             backRight.setPower(1 * POWERCOEFFICIENT);
         }
+        if(gamepad1.b) { lift.setPosition(UP); }
+        if(gamepad1.x) { lift.setPosition(DOWN); }
 
-        if (gamepad1.left_trigger > 0 || (gamepad2.left_trigger > 0 && !(gamepad1.right_trigger > 0)))
-        {
-            // Release Block
-            right_claw.setPosition(OPEN_CLAW);
-            left_claw.setPosition(OPEN_CLAW);
-        }
-        if (gamepad1.right_trigger > 0 || (gamepad2.right_trigger > 0 && !(gamepad1.left_trigger > 0)))
-        {
-            // Grab Block
-            right_claw.setPosition(CLOSED_CLAW);
-            left_claw.setPosition(CLOSED_CLAW);
-        }
+        if(gamepad1.start && gamepad1.x) { twoPlayersActive = true; }
+        if(gamepad1.start && gamepad1.y) { twoPlayersActive = false; }
 
-        wrist.setPower(gamepad2.right_stick_y);
-        arm.setPower(gamepad2.left_stick_y);
+        if (twoPlayersActive)
+        {
+            if (gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) {
+                // Release Block
+                right_claw.setPosition(OPEN_CLAW);
+                left_claw.setPosition(OPEN_CLAW);
+            }
+            if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
+                // Grab Block
+                right_claw.setPosition(CLOSED_CLAW);
+                left_claw.setPosition(CLOSED_CLAW);
+            }
 
-        //DEPRECATED SOLO CONTROLS
+            wrist.setPower(gamepad2.right_stick_y * 0.5);
+            arm.setPower(gamepad2.left_stick_y);
+        }
+        else
+        {
+            if (gamepad1.dpad_up)
+            {
+                wrist.setPower(0.5);
+            }
+            if (gamepad1.dpad_down)
+            {
+                wrist.setPower(-0.5);
+            }
+            while(gamepad1.y == true)
+            {
+                arm.setPower(1);
+            }
+            while(gamepad1.a == true)
+            {
+                arm.setPower(-1);
+            }
 
-        /*
-        if (gamepad1.dpad_up)
-        {
-            wrist.setPower(1);
+            if (gamepad1.left_trigger > 0) {
+                // Release Block
+                right_claw.setPosition(OPEN_CLAW);
+                left_claw.setPosition(OPEN_CLAW);
+            }
+            if (gamepad1.right_trigger > 0) {
+                // Grab Block
+                right_claw.setPosition(CLOSED_CLAW);
+                left_claw.setPosition(CLOSED_CLAW);
+            }
         }
-        if (gamepad1.dpad_down)
-        {
-            wrist.setPower(-1);
-        }
-        while(gamepad1.y == true)
-        {
-            arm.setPower(1);
-        }
-        while(gamepad1.a == true)
-        {
-            arm.setPower(-1);
-        }
-        */
     }
 }

@@ -18,7 +18,7 @@ public class Comp_Auto_Beta_Red extends LinearOpMode
         blockGrab.performTask(TaskBase_Beta.Speed.Fast);
         while(blockGrab.getStatus() == false)
         {
-            blockGrab.performTask(TaskBase_Beta.Speed.Fast);
+            blockGrab.performTask(TaskBase.Speed.Fast);
             sleep(100);
         }
          */
@@ -26,7 +26,7 @@ public class Comp_Auto_Beta_Red extends LinearOpMode
         baseMove.Init(telemetry, hardwareMap);
         while(baseMove.getStatus() == false)
         {
-            baseMove.performTask(TaskBase_Beta.Speed.Fast, TaskBase_Beta.Team.Red);
+            baseMove.performTask(TaskBase.Speed.Fast, TaskBase.Team.Red);
             sleep(100);
         }
         sleep((30 - (int)getRuntime())*1000);

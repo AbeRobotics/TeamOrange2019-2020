@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TaskBase_Beta
+public class TaskBase_Beta extends TaskBase
 {
 
     DcMotor frontLeft;
@@ -20,40 +20,18 @@ public class TaskBase_Beta
 
     Servo claw;
 
-    Direction forward = Direction.Forward;
-    Direction backward = Direction.Backward;
-    Direction left = Direction.Left;
-    Direction right = Direction.Right;
-
     Position open = Position.Open;
     Position closed = Position.Closed;
 
     final double OPEN_CLAW = 0;
     final double CLOSED_CLAW = 1;
 
-    protected double wheelPower = 1;
-
     public Telemetry telemetry;
     private HardwareMap hardwareMap;
-
-    public enum Speed
-    {
-        Fast, Intermediate, Slow;
-    }
-
-    public enum Direction
-    {
-        Left, Right, Forward, Backward;
-    }
 
     public enum Position
     {
         Open, Closed
-    }
-
-    public enum Team
-    {
-        Red, Blue
     }
 
     public void Init(Telemetry telemetry, HardwareMap hardwareMap)
@@ -83,65 +61,6 @@ public class TaskBase_Beta
         this.wheelPower = wheelPower;
     }
 
-    public void halfTurn(Direction direction)
-    {
-        int directionCoefficient = 0;
-
-        switch (direction)
-        {
-            case Left:
-                directionCoefficient = 1;
-                break;
-            case Right:
-                directionCoefficient = -1;
-                break;
-        }
-
-        frontLeft.setPower(-wheelPower * directionCoefficient);
-        frontRight.setPower(wheelPower * directionCoefficient);
-        backLeft.setPower(-wheelPower * directionCoefficient);
-        backRight.setPower(wheelPower * directionCoefficient);
-
-        sleep(1500);
-    }
-
-    public void move(Direction direction)
-    {
-        switch (direction)
-        {
-            case Forward:
-                telemetry.addData("Forward Called Test", "True");
-                telemetry.update();
-                frontLeft.setPower(wheelPower);
-                frontRight.setPower(wheelPower);
-                backLeft.setPower(wheelPower);
-                backRight.setPower(wheelPower);
-                break;
-            case Backward:
-                telemetry.addData("Backward Called Test", "True");
-                telemetry.update();
-                frontLeft.setPower(-wheelPower);
-                frontRight.setPower(-wheelPower);
-                backLeft.setPower(-wheelPower);
-                backRight.setPower(-wheelPower);
-                break;
-            case Left:
-                frontLeft.setPower(-wheelPower);
-                frontRight.setPower(wheelPower);
-                backLeft.setPower(wheelPower);
-                backRight.setPower(-wheelPower);
-                break;
-            case Right:
-                frontLeft.setPower(wheelPower);
-                frontRight.setPower(-wheelPower);
-                backLeft.setPower(-wheelPower);
-                backRight.setPower(wheelPower);
-                break;
-        }
-
-
-    }
-
     public void setClawPosition(Position p)
     {
         switch (p)
@@ -153,38 +72,5 @@ public class TaskBase_Beta
                 claw.setPosition(CLOSED_CLAW);
                 break;
         }
-    }
-
-    public void performTask(Speed speed)
-    {
-        switch (speed)
-        {
-            case Fast:
-                wheelPower = 1;
-                break;
-            case Slow:
-                wheelPower = 0.2;
-                break;
-            case Intermediate:
-                wheelPower = 0.5;
-                break;
-        }
-    }
-
-    public final void sleep(long milliseconds)
-    {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    public final void resetMotors()
-    {
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
     }
 }
