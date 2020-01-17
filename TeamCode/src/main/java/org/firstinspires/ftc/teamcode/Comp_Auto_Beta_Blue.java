@@ -13,7 +13,7 @@ public class Comp_Auto_Beta_Blue extends LinearOpMode
     public void runOpMode() throws InterruptedException
     {
         /*
-        TaskBlockGrab_Beta blockGrab = new TaskBlockGrab_Beta();
+        Task_BlockGrab_Beta blockGrab = new Task_BlockGrab_Beta();
         blockGrab.Init(telemetry, hardwareMap);
         blockGrab.performTask(TaskBase_Beta.Speed.Fast);
         while(blockGrab.getStatus() == false)
@@ -22,7 +22,7 @@ public class Comp_Auto_Beta_Blue extends LinearOpMode
             sleep(100);
         }
          */
-        TaskFoundationMove_Beta baseMove = new TaskFoundationMove_Beta();
+        Task_FoundationMove_Beta baseMove = new Task_FoundationMove_Beta();
         baseMove.Init(telemetry, hardwareMap);
         while(baseMove.getStatus() == false)
         {

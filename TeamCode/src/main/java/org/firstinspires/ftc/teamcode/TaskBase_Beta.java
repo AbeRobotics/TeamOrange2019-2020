@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TaskBase_Beta extends TaskBase
+public abstract class TaskBase_Beta extends TaskBase
 {
 
     DcMotor frontLeft;
@@ -56,7 +56,6 @@ public class TaskBase_Beta extends TaskBase
 
         claw = hardwareMap.servo.get("claw");
         claw.setDirection(Servo.Direction.REVERSE);
-        //claw.setPosition(claw.getPosition());
 
         this.wheelPower = wheelPower;
     }

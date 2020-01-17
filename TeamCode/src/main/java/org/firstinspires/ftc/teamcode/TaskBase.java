@@ -3,12 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class TaskBase
+public abstract class TaskBase
 {
 
     DcMotor frontLeft;
@@ -22,18 +21,24 @@ public class TaskBase
     Direction right = Direction.Right;
 
     protected double wheelPower = 1;
+    protected double armPower = 1;
 
     public Telemetry telemetry;
     private HardwareMap hardwareMap;
 
-    public enum Speed
+    public enum wheelSpeed
     {
-        Fast, Intermediate, Slow;
+        Fast, Intermediate, Slow
+    }
+
+    public enum armSpeed
+    {
+        Fast, Intermediate, Slow
     }
 
     public enum Direction
     {
-        Left, Right, Forward, Backward;
+        Left, Right, Forward, Backward
     }
 
     public enum Team
@@ -84,21 +89,37 @@ public class TaskBase
         sleep(1500);
     }
 
+    public void turn(Direction direction)
+    {
+        int directionCoefficient = 0;
+
+        switch (direction)
+        {
+            case Left:
+                directionCoefficient = 1;
+                break;
+            case Right:
+                directionCoefficient = -1;
+                break;
+        }
+
+        frontLeft.setPower(-wheelPower * directionCoefficient);
+        frontRight.setPower(wheelPower * directionCoefficient);
+        backLeft.setPower(-wheelPower * directionCoefficient);
+        backRight.setPower(wheelPower * directionCoefficient);
+    }
+
     public void move(Direction direction)
     {
         switch (direction)
         {
-            case Forward:
-                telemetry.addData("Forward Called Test", "True");
-                telemetry.update();
+            case Backward:
                 frontLeft.setPower(wheelPower);
                 frontRight.setPower(wheelPower);
                 backLeft.setPower(wheelPower);
                 backRight.setPower(wheelPower);
                 break;
-            case Backward:
-                telemetry.addData("Backward Called Test", "True");
-                telemetry.update();
+            case Forward:
                 frontLeft.setPower(-wheelPower);
                 frontRight.setPower(-wheelPower);
                 backLeft.setPower(-wheelPower);
@@ -119,19 +140,36 @@ public class TaskBase
         }
     }
 
-    public void performTask(Speed speed)
+    public void performTask(wheelSpeed s1, armSpeed s2)
     {
-        switch (speed)
+        if (s1 != null)
         {
-            case Fast:
-                wheelPower = 1;
-                break;
-            case Slow:
-                wheelPower = 0.2;
-                break;
-            case Intermediate:
-                wheelPower = 0.5;
-                break;
+            switch (s1) {
+                case Fast:
+                    wheelPower = 1;
+                    break;
+                case Slow:
+                    wheelPower = 0.2;
+                    break;
+                case Intermediate:
+                    wheelPower = 0.5;
+                    break;
+            }
+        }
+
+        if (s2 != null)
+        {
+            switch (s2) {
+                case Fast:
+                    armPower = 1;
+                    break;
+                case Slow:
+                    armPower = 0.2;
+                    break;
+                case Intermediate:
+                    armPower = 0.5;
+                    break;
+            }
         }
     }
 
