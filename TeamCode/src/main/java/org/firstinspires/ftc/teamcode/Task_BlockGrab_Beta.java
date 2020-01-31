@@ -15,10 +15,9 @@ public class Task_BlockGrab_Beta extends TaskBase_Beta{
 
     }
 
-    @Override
-    public void performTask(Speed speed)
+    public void performTask(wheelSpeed speed)
     {
-        super.performTask(speed);
+        super.performTask(speed, null);
 
         super.move(forward);
         sleep(3000);

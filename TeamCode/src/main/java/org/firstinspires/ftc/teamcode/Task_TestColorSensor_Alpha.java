@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public class Task_TestColorSensor_Alpha extends TaskBase_Alpha
 {
     private boolean statusCompletion;
-    private final double COLORLIMIT = 0.1;
+    private final double COLORLIMIT = 0.2;
 
     @Override
     public void Init(Telemetry telemetry, HardwareMap hardwareMap)

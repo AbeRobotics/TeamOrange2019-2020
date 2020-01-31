@@ -26,7 +26,7 @@ public class Comp_Auto_Beta_Blue extends LinearOpMode
         baseMove.Init(telemetry, hardwareMap);
         while(baseMove.getStatus() == false)
         {
-            baseMove.performTask(TaskBase.Speed.Fast, TaskBase.Team.Blue);
+            baseMove.performTask(TaskBase.wheelSpeed.Fast, TaskBase.Team.Blue);
             sleep(100);
         }
         sleep((30 - (int)getRuntime())*1000);

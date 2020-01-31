@@ -14,9 +14,9 @@ public class Task_FoundationMove_Beta extends TaskBase_Beta
         statusCompletion = false;
     }
 
-    public void performTask(Speed speed, Team team)
+    public void performTask(wheelSpeed speed, Team team)
     {
-        super.performTask(speed);
+        super.performTask(speed, null);
 
         move(forward);
         sleep(1600);

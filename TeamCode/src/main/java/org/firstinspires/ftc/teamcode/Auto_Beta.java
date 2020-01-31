@@ -16,7 +16,7 @@ public class Auto_Beta extends LinearOpMode
         moveTest.Init(telemetry, hardwareMap);
         while(moveTest.getStatus() == false)
         {
-            moveTest.performTask(TaskBase.Speed.Fast, TaskBase.Team.Blue);
+            moveTest.performTask(TaskBase.wheelSpeed.Fast);
             sleep(100);
         }
     }

@@ -12,11 +12,22 @@ public class Auto_Alpha extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        Task_TestMovement_General moveTest = new Task_TestMovement_General();
-        moveTest.Init(telemetry, hardwareMap);
-        while(moveTest.getStatus() == false)
+        Task_TestIMU_Alpha imuTest = new Task_TestIMU_Alpha();
+        Task_TestMovement_General movementTest = new Task_TestMovement_General();
+
+        imuTest.Init(telemetry, hardwareMap);
+
+        waitForStart();
+
+        /*while(movementTest.getStatus() == false)
         {
-            moveTest.performTask(TaskBase.wheelSpeed.Intermediate);
+            movementTest.performTask(TaskBase.wheelSpeed.Fast);
+            sleep(100);
+        }*/
+
+        while(imuTest.getStatus() == false)
+        {
+            imuTest.performTask(TaskBase.wheelSpeed.Fast);
             sleep(100);
         }
     }

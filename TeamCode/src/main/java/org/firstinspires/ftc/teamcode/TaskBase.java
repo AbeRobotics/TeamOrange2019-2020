@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -142,7 +143,7 @@ public abstract class TaskBase
 
     public void performTask(wheelSpeed s1, armSpeed s2)
     {
-        if (s1 != null)
+        try
         {
             switch (s1) {
                 case Fast:
@@ -156,8 +157,12 @@ public abstract class TaskBase
                     break;
             }
         }
+        catch (NullPointerException e)
+        {
+            wheelPower = 0;
+        }
 
-        if (s2 != null)
+        try
         {
             switch (s2) {
                 case Fast:
@@ -171,6 +176,10 @@ public abstract class TaskBase
                     break;
             }
         }
+        catch (NullPointerException e)
+        {
+            armPower = 0;
+        }
     }
 
     public final void sleep(long milliseconds)
@@ -180,6 +189,11 @@ public abstract class TaskBase
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public final void idle()
+    {
+        Thread.yield();
     }
 
     public final void resetMotors()

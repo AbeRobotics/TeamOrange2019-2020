@@ -7,10 +7,8 @@ public class Task_TestMovement_General extends TaskBase
 {
     private boolean statusCompletion;
 
-    @Override
-    public void Init(Telemetry telemetry, HardwareMap hardwareMap)
+    public Task_TestMovement_General()
     {
-        super.Init(telemetry, hardwareMap);
         statusCompletion = false;
     }
 
@@ -21,37 +19,37 @@ public class Task_TestMovement_General extends TaskBase
         telemetry.addData("Forward Called Test", "True");
         telemetry.update();
         move(forward);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         telemetry.addData("Left Called Test", "True");
         telemetry.update();
         move(left);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         telemetry.addData("Right Called Test", "True");
         telemetry.update();
         move(right);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         telemetry.addData("Backward Called Test", "True");
         telemetry.update();
         move(backward);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         telemetry.addData("Left Turn Called Test", "True");
         telemetry.update();
         turn(left);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         telemetry.addData("Right Turn Called Test", "True");
         telemetry.update();
         turn(right);
-        sleep(2000);
+        sleep(1000);
         resetMotors();
 
         statusCompletion = true;
