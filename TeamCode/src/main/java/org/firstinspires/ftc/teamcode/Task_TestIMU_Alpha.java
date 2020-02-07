@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 public class Task_TestIMU_Alpha extends TaskBase_Alpha
 {
     private boolean statusCompletion;
@@ -16,12 +13,10 @@ public class Task_TestIMU_Alpha extends TaskBase_Alpha
     {
         super.performTask(speed, armSpeed.Fast);
 
-        move(forward, 0.61);
-        rotate(180, 0.3);
-        move(forward, 0.61);
-        rotate(90, 0.3);
-        move(left, 0.61);
-        move(right, 0.61);
+        gyroMove(forward, 0.61);
+        gyroMove(left, 0.61);
+        gyroMove(backward, 0.61);
+        gyroMove(right, 0.61);
 
         statusCompletion = true;
     }

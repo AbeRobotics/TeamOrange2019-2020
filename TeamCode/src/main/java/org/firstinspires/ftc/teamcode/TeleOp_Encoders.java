@@ -113,17 +113,17 @@ public class TeleOp_Encoders extends LinearOpMode {
         encoderDrive(TURN_SPEED,   12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
         encoderDrive(DRIVE_SPEED, -24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
-        robot.leftClaw.setPosition(1.0);            // S4: Stop and close the claw.
+        robot.leftClaw.setPosition(1.0);          // S4: Stop and close the claw.
         robot.rightClaw.setPosition(0.0);
-        sleep(1000);     // pause for servos to move
+        sleep(1000);     // pause for servos to gyroMove
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
 
     /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
+     *  Method to perfmorm a relative gyroMove, based on encoder counts.
+     *  Encoders are not reset as the gyroMove is based on the current position.
      *  Move will stop if any of three conditions occur:
      *  1) Move gets to the desired position
      *  2) Move runs out of time
@@ -179,7 +179,7 @@ public class TeleOp_Encoders extends LinearOpMode {
             robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            //  sleep(250);   // optional pause after each gyroMove
         }
     }
 }

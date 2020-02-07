@@ -141,6 +141,45 @@ public abstract class TaskBase
         }
     }
 
+    public void move(Direction direction, long time)
+    {
+        switch (direction)
+        {
+            case Backward:
+                frontLeft.setPower(wheelPower);
+                frontRight.setPower(wheelPower);
+                backLeft.setPower(wheelPower);
+                backRight.setPower(wheelPower);
+                sleep(time);
+                resetMotors();
+                break;
+            case Forward:
+                frontLeft.setPower(-wheelPower);
+                frontRight.setPower(-wheelPower);
+                backLeft.setPower(-wheelPower);
+                backRight.setPower(-wheelPower);
+                sleep(time);
+                resetMotors();
+                break;
+            case Left:
+                frontLeft.setPower(-wheelPower);
+                frontRight.setPower(wheelPower);
+                backLeft.setPower(wheelPower);
+                backRight.setPower(-wheelPower);
+                sleep(time);
+                resetMotors();
+                break;
+            case Right:
+                frontLeft.setPower(wheelPower);
+                frontRight.setPower(-wheelPower);
+                backLeft.setPower(-wheelPower);
+                backRight.setPower(wheelPower);
+                sleep(time);
+                resetMotors();
+                break;
+        }
+    }
+
     public void performTask(wheelSpeed s1, armSpeed s2)
     {
         try

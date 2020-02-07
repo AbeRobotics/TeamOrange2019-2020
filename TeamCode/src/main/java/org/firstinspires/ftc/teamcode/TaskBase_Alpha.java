@@ -63,8 +63,14 @@ public abstract class TaskBase_Alpha extends TaskBase
         backRight = hardwareMap.dcMotor.get("back_right");
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        telemetry.addData("Wheels:", "Initialized");
+        telemetry.update();
+
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.dcMotor.get("wrist");
+
+        telemetry.addData("Arm:", "Initialized");
+        telemetry.update();
 
         right_claw = hardwareMap.servo.get("right_claw");
         right_claw.setDirection(Servo.Direction.REVERSE);
@@ -74,6 +80,9 @@ public abstract class TaskBase_Alpha extends TaskBase
 
         dragger = hardwareMap.servo.get("dragger");
         dragger.setPosition(UP);
+
+        telemetry.addData("Servos:", "Initialized");
+        telemetry.update();
 
         colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
 
@@ -88,8 +97,7 @@ public abstract class TaskBase_Alpha extends TaskBase
         imu.initialize(parameters);
         telemetry.addData("IMU", "calibrating...");
         telemetry.update();
-        while (!imu.isGyroCalibrated()
-        )
+        while (!imu.isGyroCalibrated())
         {
             sleep(100);
         }
@@ -142,7 +150,7 @@ public abstract class TaskBase_Alpha extends TaskBase
         }
     }
 
-    public void move(Direction direction, double distance) //distance is in meters
+    public void gyroMove(Direction direction, double distance) //distance is in meters
     {
         movementTracker.reset();
 
@@ -156,14 +164,17 @@ public abstract class TaskBase_Alpha extends TaskBase
 
                 sleep(300);
 
-                while(movementTracker.seconds() != (distance/imu.getVelocity().xVeloc))
+                while(movementTracker.seconds() < (distance/imu.getVelocity().xVeloc))
                 {
+                    /*
                     correction = checkDirection();
 
                     frontLeft.setPower(frontLeft.getPower() - correction);
                     frontRight.setPower(frontRight.getPower() + correction);
                     backLeft.setPower(backLeft.getPower() - correction);
                     backRight.setPower(backRight.getPower() + correction);
+*/
+                    sleep(10);
                 }
                 resetMotors();
                 break;
@@ -177,14 +188,17 @@ public abstract class TaskBase_Alpha extends TaskBase
 
                 sleep(300);
 
-                while(movementTracker.seconds() != (distance/imu.getVelocity().xVeloc))
+                while(movementTracker.seconds() < (distance/imu.getVelocity().xVeloc))
                 {
+                    /*
                     correction = checkDirection();
 
                     frontLeft.setPower(frontLeft.getPower() - correction);
                     frontRight.setPower(frontRight.getPower() + correction);
                     backLeft.setPower(backLeft.getPower() - correction);
                     backRight.setPower(backRight.getPower() + correction);
+                     */
+                    sleep(10);
                 }
 
                 resetMotors();
@@ -198,14 +212,17 @@ public abstract class TaskBase_Alpha extends TaskBase
 
                 sleep(300);
 
-                while(movementTracker.seconds() != (distance/imu.getVelocity().zVeloc))
+                while(movementTracker.seconds() < (distance/imu.getVelocity().zVeloc))
                 {
+                    /*
                     correction = checkDirection();
 
                     frontLeft.setPower(frontLeft.getPower() - correction);
                     frontRight.setPower(frontRight.getPower() + correction);
                     backLeft.setPower(backLeft.getPower() - correction);
                     backRight.setPower(backRight.getPower() + correction);
+*/
+                    sleep(10);
                 }
 
                 resetMotors();
@@ -219,14 +236,17 @@ public abstract class TaskBase_Alpha extends TaskBase
 
                 sleep(300);
 
-                while(movementTracker.seconds() != (distance/imu.getVelocity().zVeloc))
+                while(movementTracker.seconds() < (distance/imu.getVelocity().zVeloc))
                 {
+                    /*
                     correction = checkDirection();
 
                     frontLeft.setPower(frontLeft.getPower() - correction);
                     frontRight.setPower(frontRight.getPower() + correction);
                     backLeft.setPower(backLeft.getPower() - correction);
                     backRight.setPower(backRight.getPower() + correction);
+*/
+                    sleep(10);
                 }
 
                 resetMotors();
@@ -330,7 +350,7 @@ public abstract class TaskBase_Alpha extends TaskBase
         resetMotors();
 
         // wait for rotation to stop.
-        sleep(DRIFTCORRECTION);
+        sleep(1000);
 
         // reset angle tracking on new heading.
         resetAngle();
