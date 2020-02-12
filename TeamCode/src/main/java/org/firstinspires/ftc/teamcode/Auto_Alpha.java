@@ -105,16 +105,6 @@ public class Auto_Alpha extends LinearOpMode
 
         sleep(1000);
 
-        frontLeft.setPower(-1);
-        backLeft.setPower(1);
-        frontRight.setPower(1);
-        backRight.setPower(-1);
-        sleep(1000);
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
-
         sleep(2000);
         dragger.setPosition(UP);
         sleep(1000);
@@ -123,7 +113,7 @@ public class Auto_Alpha extends LinearOpMode
         backLeft.setPower(-1);
         frontRight.setPower(-1);
         backRight.setPower(1);
-        sleep((3000));
+        sleep((2700));
         frontLeft.setPower(0);
         backLeft.setPower(0);
         frontRight.setPower(0);

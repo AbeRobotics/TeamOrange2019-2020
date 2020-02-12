@@ -4,13 +4,25 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 {
     public void foundationMove(RobotTeam team)
     {
-        move(forward, 1330);
+        encoderDrive(6,6,4);
 
-        sleep(1500);
+        switch (team)
+        {
+            case BlueLeft:
+                moveSideways(left, 900);
+                break;
+            case RedRight:
+                moveSideways(right, 900);
+                break;
+        }
+
+        encoderDrive(9,9,4);
+
+        sleep(1000);
         setDraggerPosition(down);
         sleep(500);
 
-        move(backward, 1420);
+        encoderDrive(-17,-17,3); //Extra distance needed due dragging foundation
 
         sleep(1000);
         setDraggerPosition(up);
@@ -18,27 +30,73 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
         switch (team)
         {
-            case RedRight:
-                move(left, 2700);
-                break;
             case BlueLeft:
-                move(right, 2700);
+                moveSideways(right, 2000);
+                encoderDrive(10,10,2);
+                moveSideways(left, 1800);
+                encoderDrive(-9,-9,2);
+                moveSideways(right, 1200);
+                break;
+            case RedRight:
+                moveSideways(left, 2000);
+                encoderDrive(10,10,2);
+                moveSideways(right, 1800);
+                encoderDrive(-9,-9,2);
+                moveSideways(left, 1200);break;
+        }
+    }
+
+    public void foundationMoveBasic(RobotTeam team)
+    {
+        encoderDrive(6,6,3);
+
+        switch (team)
+        {
+            case BlueLeft:
+                moveSideways(left, 900);
+                break;
+            case RedRight:
+                moveSideways(right, 900);
+                break;
+        }
+
+        encoderDrive(9,9,4);
+
+        sleep(1000);
+        setDraggerPosition(down);
+        sleep(500);
+
+        encoderDrive(-17,-17,3); //Extra distance needed due dragging foundation
+
+        sleep(1000);
+        setDraggerPosition(up);
+        sleep(500);
+
+        switch (team)
+        {
+            case BlueLeft:
+                moveSideways(right, 2700);
+                break;
+            case RedRight:
+                moveSideways(left, 2700);
                 break;
         }
     }
 
     public void lineMove(RobotTeam team)
     {
+        encoderDrive(1,1,1);
+
         switch (team)
         {
             case RedLeft:
-                move(right, 1420);
+                moveSideways(right, 1200);
                 break;
             case BlueLeft:
                 move(right, 1420);
                 break;
             case RedRight:
-                move(left, 1420);
+                moveSideways(left, 1200);
                 break;
             case BlueRight:
                 move(left, 1420);
@@ -48,17 +106,22 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
     public void colorSensorTest()
     {
+        //Only works if the robot is standing adjacent to the blocks
         while(!isStopRequested())
         {
-            getColor();
+            getColor(); //Set to RGB color currentColor
+            // If currentColor == Yellow
+            // Move in the direction that the color sensor is facing
+            // else if (currentColor == Black)
+
         }
     }
 
     public void gyroMoveTest()
     {
-        encoderDrive(48,  48, 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(12,  12, 4.0);  // S1: Forward 47 Inches with 5 Sec timeout
         encoderDrive(12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(-24, -24, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(12, 12, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

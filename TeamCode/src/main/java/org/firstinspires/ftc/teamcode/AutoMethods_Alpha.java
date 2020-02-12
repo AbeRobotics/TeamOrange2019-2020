@@ -35,10 +35,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
     private static final double     COUNTS_PER_MOTOR_REV    = 1440;  // eg: TETRIX Motor Encoder
     private static final double     DRIVE_GEAR_REDUCTION    = 2.0;     // This is < 1.0 if geared UP
     private static final double     WHEEL_DIAMETER_INCHES   = 4.0;     // For figuring circumference
-    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    private static final double     DRIVE_SPEED             = 0.6;
-    private static final double     TURN_SPEED              = 0.5;
+    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
     private RobotDirection currentDirection;
 
@@ -183,6 +180,8 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
     private void setPower(RobotDirection d, double p) //Private methode to change power of the wheels
     {
+        telemetry.addData("Setting power:", wheelPower);
+        telemetry.update();
         switch (d)
         {
             case Forward:
@@ -329,6 +328,30 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
         sleep(t);
         slowDown(d);
         resetMotors();
+    }
+    public void moveSideways(RobotDirection d, long t)
+    {
+        switch (d)
+        {
+            case Left:
+                frontLeft.setPower(-wheelPower);
+                frontRight.setPower(wheelPower);
+                backLeft.setPower(wheelPower);
+                backRight.setPower(-wheelPower);
+                currentDirection = left;
+                sleep(t);
+                resetMotors();
+                break;
+            case Right:
+                frontLeft.setPower(wheelPower);
+                frontRight.setPower(-wheelPower);
+                backLeft.setPower(-wheelPower);
+                backRight.setPower(wheelPower);
+                currentDirection = right;
+                sleep(t);
+                resetMotors();
+                break;
+        }
     }
 
     public void setClawPosition(ServoPosition p) //Set position of claws in p position

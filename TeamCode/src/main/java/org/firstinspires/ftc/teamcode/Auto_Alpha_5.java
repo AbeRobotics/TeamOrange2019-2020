@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Auto - Alpha (FOUNDATION BLUE)", group="Autonomous")
-public class Auto_Alpha_2 extends AutoTasks_Alpha
+@Autonomous(name="Auto - Alpha (PARK BLUE)", group="Autonomous")
+public class Auto_Alpha_5 extends AutoTasks_Alpha
 {
     @Override
     public void runOpMode() throws InterruptedException
@@ -13,6 +13,6 @@ public class Auto_Alpha_2 extends AutoTasks_Alpha
         waitForStart();
         resetTime();
 
-        foundationMoveBasic(RobotTeam.BlueLeft);
+        lineMove(blueRight);
     }
 }
