@@ -4,7 +4,7 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 {
     public void foundationMove(RobotTeam team)
     {
-        encoderDrive(6,6,4);
+        encoderDrive(forward,6,6,4);
 
         switch (team)
         {
@@ -16,13 +16,13 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
                 break;
         }
 
-        encoderDrive(9,9,4);
+        encoderDrive(forward,9,9,4);
 
         sleep(1000);
         setDraggerPosition(down);
         sleep(500);
 
-        encoderDrive(-17,-17,3); //Extra distance needed due dragging foundation
+        encoderDrive(forward,-17,-17,3); //Extra distance needed due dragging foundation
 
         sleep(1000);
         setDraggerPosition(up);
@@ -32,23 +32,23 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         {
             case BlueLeft:
                 moveSideways(right, 2000);
-                encoderDrive(10,10,2);
+                encoderDrive(forward,10,10,2);
                 moveSideways(left, 1800);
-                encoderDrive(-9,-9,2);
+                encoderDrive(forward,-9,-9,2);
                 moveSideways(right, 1200);
                 break;
             case RedRight:
                 moveSideways(left, 2000);
-                encoderDrive(10,10,2);
+                encoderDrive(forward,10,10,2);
                 moveSideways(right, 1800);
-                encoderDrive(-9,-9,2);
+                encoderDrive(forward,-9,-9,2);
                 moveSideways(left, 1200);break;
         }
     }
 
     public void foundationMoveBasic(RobotTeam team)
     {
-        encoderDrive(6,6,3);
+        encoderDrive(forward,6,6,3);
 
         switch (team)
         {
@@ -60,13 +60,13 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
                 break;
         }
 
-        encoderDrive(9,9,4);
+        encoderDrive(forward,9,9,4);
 
         sleep(1000);
         setDraggerPosition(down);
         sleep(500);
 
-        encoderDrive(-17,-17,3); //Extra distance needed due dragging foundation
+        encoderDrive(forward,-17,-17,3); //Extra distance needed due dragging foundation
 
         sleep(1000);
         setDraggerPosition(up);
@@ -85,7 +85,7 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
     public void lineMove(RobotTeam team)
     {
-        encoderDrive(1,1,1);
+        encoderDrive(forward,1,1,1);
 
         switch (team)
         {
@@ -119,9 +119,9 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
     public void gyroMoveTest()
     {
-        encoderDrive(12,  12, 4.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
-        encoderDrive(12, 12, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
+        encoderDrive(forward,12,  12, 4.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(forward,12, -12, 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(forward,12, 12, 4.0);  // S3: Reverse 24 Inches with 4 Sec timeout
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
