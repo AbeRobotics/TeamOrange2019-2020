@@ -504,7 +504,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
         telemetry.update();telemetry.update();
     }
 
-    public void encoderDrive(double leftInches, double rightInches, double timeoutS) //(TESTING REQUIRED) Uses encodes to move left side of robot leftInches in inches and right side of robot rightInches in inches
+    public void encoderDrive(RobotDirection d, double leftInches, double rightInches, double timeoutS) //(TESTING REQUIRED) Uses encodes to move left side of robot leftInches in inches and right side of robot rightInches in inches
                                                                                      // while terminating movement if current elapsed time is longer than timeoutS in seconds
     {
 
@@ -534,10 +534,32 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
             // resetMotors the timeout time and start motion.
             encoderRunTime.reset();
-            frontLeft.setPower(Math.abs(wheelPower));
-            frontRight.setPower(Math.abs(wheelPower));
-            backLeft.setPower(Math.abs(wheelPower));
-            backRight.setPower(Math.abs(wheelPower));
+
+            switch (d)
+            {
+                case Forward:
+                    frontLeft.setPower(Math.abs(wheelPower));
+                    frontRight.setPower(Math.abs(wheelPower));
+                    backLeft.setPower(Math.abs(wheelPower));
+                    backRight.setPower(Math.abs(wheelPower));
+                    break;
+                case Backward:
+                    frontLeft.setPower(Math.abs(-wheelPower));
+                    frontRight.setPower(Math.abs(-wheelPower));
+                    backLeft.setPower(Math.abs(-wheelPower));
+                    backRight.setPower(Math.abs(-wheelPower));
+                    break;
+                case Left:
+                    frontLeft.setPower(Math.abs(-wheelPower));
+                    frontRight.setPower(Math.abs(wheelPower));
+                    backLeft.setPower(Math.abs(wheelPower));
+                    backRight.setPower(Math.abs(-wheelPower));
+                case Right:
+                    frontLeft.setPower(Math.abs(wheelPower));
+                    frontRight.setPower(Math.abs(-wheelPower));
+                    backLeft.setPower(Math.abs(-wheelPower));
+                    backRight.setPower(Math.abs(wheelPower));
+            }
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
