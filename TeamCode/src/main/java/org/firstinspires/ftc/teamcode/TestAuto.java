@@ -14,10 +14,10 @@ public class TestAuto extends LinearOpMode
     {
         TestTask test = new TestTask();
         test.Init(telemetry, hardwareMap);
-        test.performTask(TaskBase.Speed.Fast);
+        test.performTask(TaskBase.wheelSpeed.Fast);
         while(test.getStatus() == false)
         {
-            test.performTask(TaskBase.Speed.Fast);
+            test.performTask(TaskBase.wheelSpeed.Fast);
             sleep(100);
         }
         sleep((30 - (int)getRuntime())*1000);

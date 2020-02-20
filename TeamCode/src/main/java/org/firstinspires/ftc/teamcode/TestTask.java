@@ -17,10 +17,9 @@ public class TestTask extends TaskBase{
 
     }
 
-    @Override
-    public void performTask(Speed speed)
+    public void performTask(wheelSpeed speed)
     {
-        super.performTask(speed);
+        super.performTask(speed, null);
         move360(wheelPower);
         sleep(5000);
         resetMotors();

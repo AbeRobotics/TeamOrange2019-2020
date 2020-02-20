@@ -16,7 +16,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 {
     private DcMotor frontLeft, frontRight, backLeft, backRight, arm, wrist;
 
-    private Servo dragger, right_claw, left_claw;
+    private Servo hookers, right_claw, left_claw;
 
     private ColorSensor colorSensor;
 
@@ -30,7 +30,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
     private double globalAngle, correction, wheelPower = 1, armPower = 1;
 
-    private final double OPEN_CLAW = 0.5, CLOSED_CLAW = 0, UP = 0.7, DOWN = 1;
+    private final double OPEN_CLAW = 0.5, CLOSED_CLAW = 0, UP = 1, DOWN = 0.5;
 
     private static final double     COUNTS_PER_MOTOR_REV    = 1440;  // eg: TETRIX Motor Encoder
     private static final double     DRIVE_GEAR_REDUCTION    = 2.0;     // This is < 1.0 if geared UP
@@ -100,23 +100,10 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
         right_claw.setPosition(CLOSED_CLAW);
         left_claw.setPosition(CLOSED_CLAW);
 
-        dragger = hardwareMap.servo.get("dragger");
-        dragger.setPosition(UP);
+        hookers = hardwareMap.servo.get("hookers");
+        hookers.setPosition(UP);
 
         colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
-
-        telemetry.addData("Status", "Resetting Encoders");
-        telemetry.update();
-
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                frontLeft.getCurrentPosition(),
-                frontRight.getCurrentPosition());
-        telemetry.update();
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -151,7 +138,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
         switch (s)
         {
             case Fast:
-                wheelPower = 1;
+                wheelPower = 0.8;
                 break;
             case Intermediate:
                 wheelPower = 0.5;
@@ -369,15 +356,15 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
         }
     }
 
-    public void setDraggerPosition(ServoPosition p) //Set position of dragger in p position
+    public void setDraggerPosition(ServoPosition p) //Set position of hookers in p position
     {
         switch (p)
         {
             case Open:
-                dragger.setPosition(UP);
+                hookers.setPosition(UP);
                 break;
             case Closed:
-                dragger.setPosition(DOWN);
+                hookers.setPosition(DOWN);
                 break;
         }
     }
@@ -507,6 +494,18 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
     public void encoderDrive(RobotDirection d, double leftInches, double rightInches, double timeoutS) //(TESTING REQUIRED) Uses encodes to move left side of robot leftInches in inches and right side of robot rightInches in inches
                                                                                      // while terminating movement if current elapsed time is longer than timeoutS in seconds
     {
+        telemetry.addData("Status", "Resetting Encoders");
+        telemetry.update();
+
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        telemetry.addData("Path0",  "Starting at %7d :%7d",
+                frontLeft.getCurrentPosition(),
+                frontRight.getCurrentPosition());
+        telemetry.update();
 
         int newFrontLeftTarget;
         int newFrontRightTarget;

@@ -9,10 +9,10 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         switch (team)
         {
             case BlueLeft:
-                moveSideways(left, 900);
+                encoderDrive(left,4,4,2);
                 break;
             case RedRight:
-                moveSideways(right, 900);
+                encoderDrive(right,4,4,2);
                 break;
         }
 
@@ -53,10 +53,10 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         switch (team)
         {
             case BlueLeft:
-                moveSideways(left, 900);
+                encoderDrive(left,4,4,2);
                 break;
             case RedRight:
-                moveSideways(right, 900);
+                encoderDrive(right,4,4,2);
                 break;
         }
 
@@ -75,10 +75,10 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         switch (team)
         {
             case BlueLeft:
-                moveSideways(right, 2700);
+                encoderDrive(left,10,10,5);
                 break;
             case RedRight:
-                moveSideways(left, 2700);
+                encoderDrive(right,10,10,5);
                 break;
         }
     }

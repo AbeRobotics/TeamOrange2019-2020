@@ -21,12 +21,12 @@ public class Comp_TeleOp_Alpha extends OpMode
 
     Servo right_claw;
     Servo left_claw;
-    Servo dragger;
+    Servo hookers;
 
     final double OPEN_CLAW = 1;
     final double CLOSED_CLAW = 0;
-    final double UP = 0.7;
-    final double DOWN = 1;
+    final double UP = 1;
+    final double DOWN = 0.5;
 
     final double POWERCOEFFICIENT = 1;
 
@@ -55,8 +55,8 @@ public class Comp_TeleOp_Alpha extends OpMode
         right_claw.setPosition(CLOSED_CLAW);
         left_claw.setPosition(CLOSED_CLAW);
 
-        dragger = hardwareMap.servo.get("dragger");
-        dragger.setPosition(UP);
+        hookers = hardwareMap.servo.get("hookers");
+        hookers.setPosition(UP);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -102,20 +102,20 @@ public class Comp_TeleOp_Alpha extends OpMode
 
         if(gamepad1.dpad_right == true)
         {
-            frontLeft.setPower(-1 * POWERCOEFFICIENT);
-            backLeft.setPower(1 * POWERCOEFFICIENT);
-            frontRight.setPower(1 * POWERCOEFFICIENT);
-            backRight.setPower(-1 * POWERCOEFFICIENT);
+            frontLeft.setPower(-0.8 * POWERCOEFFICIENT);
+            backLeft.setPower(0.8 * POWERCOEFFICIENT);
+            frontRight.setPower(0.8 * POWERCOEFFICIENT);
+            backRight.setPower(-0.8 * POWERCOEFFICIENT);
         }
         if(gamepad1.dpad_left == true)
         {
-            frontLeft.setPower(1 * POWERCOEFFICIENT);
-            backLeft.setPower(-1 * POWERCOEFFICIENT);
-            frontRight.setPower(-1 * POWERCOEFFICIENT);
-            backRight.setPower(1 * POWERCOEFFICIENT);
+            frontLeft.setPower(0.8 * POWERCOEFFICIENT);
+            backLeft.setPower(-0.8 * POWERCOEFFICIENT);
+            frontRight.setPower(-0.8 * POWERCOEFFICIENT);
+            backRight.setPower(0.8 * POWERCOEFFICIENT);
         }
-        if(gamepad1.b) { dragger.setPosition(UP); }
-        if(gamepad1.x) { dragger.setPosition(DOWN); }
+        if(gamepad1.b) { hookers.setPosition(DOWN);}
+        if(gamepad1.x) { hookers.setPosition(UP);}
 
         if(gamepad1.start && gamepad1.x) { twoPlayersActive = true; }
         if(gamepad1.start && gamepad1.y) { twoPlayersActive = false; }
@@ -148,19 +148,21 @@ public class Comp_TeleOp_Alpha extends OpMode
             }
             while(gamepad1.y == true)
             {
-                arm.setPower(1);
+                arm.setPower(0.8);
             }
             while(gamepad1.a == true)
             {
-                arm.setPower(-1);
+                arm.setPower(-0.8);
             }
 
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.left_trigger > 0)
+            {
                 // Release Block
                 right_claw.setPosition(OPEN_CLAW);
                 left_claw.setPosition(OPEN_CLAW);
             }
-            if (gamepad1.right_trigger > 0) {
+            if (gamepad1.right_trigger > 0)
+            {
                 // Grab Block
                 right_claw.setPosition(CLOSED_CLAW);
                 left_claw.setPosition(CLOSED_CLAW);

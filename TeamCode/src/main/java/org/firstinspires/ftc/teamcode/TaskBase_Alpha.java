@@ -78,7 +78,7 @@ public abstract class TaskBase_Alpha extends TaskBase
         right_claw.setPosition(CLOSED_CLAW);
         left_claw.setPosition(CLOSED_CLAW);
 
-        dragger = hardwareMap.servo.get("dragger");
+        dragger = hardwareMap.servo.get("dragger1");
         dragger.setPosition(UP);
 
         telemetry.addData("Servos:", "Initialized");
