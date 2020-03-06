@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Alpha(FOUNDATION RED - NO DELAY)", group="Autonomous")
-public class Auto_Alpha_4 extends AutoTasks_Alpha
+@Autonomous(name="Alpha(FOUNDATION RED - DELAY)", group="Autonomous")
+public class Auto_Alpha_7 extends AutoTasks_Alpha
 {
     @Override
     public void runOpMode() throws InterruptedException
@@ -12,6 +12,8 @@ public class Auto_Alpha_4 extends AutoTasks_Alpha
 
         waitForStart();
         resetTime();
+
+        sleep(10000);
 
         foundationMoveBasic(RobotTeam.RedRight);
     }

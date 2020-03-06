@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -23,22 +22,33 @@ public class Comp_TeleOp_Alpha extends OpMode
     Servo left_claw;
     Servo hookers;
 
+    //Servo positions
     final double OPEN_CLAW = 1;
     final double CLOSED_CLAW = 0;
     final double UP = 1;
     final double DOWN = 0.5;
 
-    final double POWERCOEFFICIENT = 1;
+    //Motor powers
+    final double WHEELPOWER = 1;
+    final double ARMPOWER = 0.8;
+    final double WRISTPOWER = 0.5;
+
+    double STRAFECOEFFICIENT = 0;
+    double POWERCOEFFICIENT = 1; //Changed from constant because I am using to control the speed of the robot -Devin
 
     boolean twoPlayersActive = true;
 
     String playerMode;
 
-    BNO055IMU imu;
+    boolean isNormalSpeed = true;
+
 
     @Override
     public void init()
     {
+        telemetry.addData("SYSTEMS", "initializing...");
+        telemetry.update();
+
         frontLeft = hardwareMap.dcMotor.get("front_left");
         frontRight = hardwareMap.dcMotor.get("front_right");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -58,19 +68,7 @@ public class Comp_TeleOp_Alpha extends OpMode
         hookers = hardwareMap.servo.get("hookers");
         hookers.setPosition(UP);
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-
-        parameters.mode                = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled      = false;
-
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
-        telemetry.addData("IMU", "calibrating...");
-        telemetry.update();
-        while (!imu.isGyroCalibrated()) { }
-        telemetry.addData("IMU", "calibrated.");
+        telemetry.addData("SYSTEMS", "ready.");
         telemetry.update();
     }
 
@@ -85,40 +83,45 @@ public class Comp_TeleOp_Alpha extends OpMode
         {
             playerMode = "One Player";
         }
+
         telemetry.addData("PlayerMode:", playerMode);
-        telemetry.addData("zVeloc:", imu.getVelocity().zVeloc);
-        telemetry.addData("xVeloc:", imu.getVelocity().xVeloc);
-        telemetry.addData("zAccel:", imu.getAcceleration().zAccel);
-        telemetry.addData("xAccel:", imu.getAcceleration().xAccel);
         telemetry.update();
 
         arm.setPower(0);
         wrist.setPower(0);
+        double frontLeftPower = gamepad1.left_stick_y;
+        double backLeftPower = gamepad1.left_stick_y;
+        double frontRightPower = gamepad1.right_stick_y;
+        double backRightPower = gamepad1.right_stick_y;
+        frontLeft.setPower(frontLeftPower * POWERCOEFFICIENT);
+        backLeft.setPower(backLeftPower * POWERCOEFFICIENT);
+        frontRight.setPower(frontRightPower * POWERCOEFFICIENT);
+        backRight.setPower(backRightPower * POWERCOEFFICIENT);
 
-        frontLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
-        backLeft.setPower(gamepad1.left_stick_y * POWERCOEFFICIENT);
-        frontRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
-        backRight.setPower(gamepad1.right_stick_y * POWERCOEFFICIENT);
-
-        if(gamepad1.dpad_right == true)
+        if(gamepad1.dpad_right)
         {
-            frontLeft.setPower(-0.8 * POWERCOEFFICIENT);
-            backLeft.setPower(0.8 * POWERCOEFFICIENT);
-            frontRight.setPower(0.8 * POWERCOEFFICIENT);
-            backRight.setPower(-0.8 * POWERCOEFFICIENT);
+            frontLeft.setPower(-WHEELPOWER * STRAFECOEFFICIENT);
+            backLeft.setPower(WHEELPOWER * STRAFECOEFFICIENT);
+            frontRight.setPower(WHEELPOWER * STRAFECOEFFICIENT);
+            backRight.setPower(-WHEELPOWER * STRAFECOEFFICIENT);
         }
-        if(gamepad1.dpad_left == true)
+        if(gamepad1.dpad_left)
         {
-            frontLeft.setPower(0.8 * POWERCOEFFICIENT);
-            backLeft.setPower(-0.8 * POWERCOEFFICIENT);
-            frontRight.setPower(-0.8 * POWERCOEFFICIENT);
-            backRight.setPower(0.8 * POWERCOEFFICIENT);
+            frontLeft.setPower(WHEELPOWER * STRAFECOEFFICIENT);
+            backLeft.setPower(-WHEELPOWER * STRAFECOEFFICIENT);
+            frontRight.setPower(-WHEELPOWER * STRAFECOEFFICIENT);
+            backRight.setPower(WHEELPOWER * STRAFECOEFFICIENT);
         }
         if(gamepad1.b) { hookers.setPosition(DOWN);}
         if(gamepad1.x) { hookers.setPosition(UP);}
 
         if(gamepad1.start && gamepad1.x) { twoPlayersActive = true; }
         if(gamepad1.start && gamepad1.y) { twoPlayersActive = false; }
+
+        //Changed robot speed -Devin
+        if (gamepad1.dpad_up) {isNormalSpeed = true; POWERCOEFFICIENT = 1.0; STRAFECOEFFICIENT = 1;}
+        if (gamepad1.dpad_down) {isNormalSpeed = false; POWERCOEFFICIENT = 0.25; STRAFECOEFFICIENT = 0.5;}
+
 
         if (twoPlayersActive)
         {
@@ -140,19 +143,19 @@ public class Comp_TeleOp_Alpha extends OpMode
         {
             if (gamepad1.dpad_up)
             {
-                wrist.setPower(0.5);
+                wrist.setPower(WRISTPOWER);
             }
             if (gamepad1.dpad_down)
             {
-                wrist.setPower(-0.5);
+                wrist.setPower(-WRISTPOWER);
             }
-            while(gamepad1.y == true)
+            while(gamepad1.y)
             {
-                arm.setPower(0.8);
+                arm.setPower(ARMPOWER);
             }
-            while(gamepad1.a == true)
+            while(gamepad1.a)
             {
-                arm.setPower(-0.8);
+                arm.setPower(-ARMPOWER);
             }
 
             if (gamepad1.left_trigger > 0)

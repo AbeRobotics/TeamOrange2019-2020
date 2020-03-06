@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 //Gives the name and group of the program for location on phone
-@TeleOp(name="Sample", group="LinearOpMode")
+//@TeleOp(name="Old - Demonstration TeleOp", group="LinearOpMode")
 
 public class sampleTeleOp extends OpMode
 {

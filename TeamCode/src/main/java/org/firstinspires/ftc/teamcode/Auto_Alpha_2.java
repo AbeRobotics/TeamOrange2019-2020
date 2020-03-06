@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Auto - Alpha (FOUNDATION BLUE)", group="Autonomous")
+@Autonomous(name="Alpha(FOUNDATION BLUE - NO DELAY)", group="Autonomous")
 public class Auto_Alpha_2 extends AutoTasks_Alpha
 {
     @Override

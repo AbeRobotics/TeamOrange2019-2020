@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="TeleOp - Beta", group="LinearOpMode")
+//@TeleOp(name="TeleOp - Beta", group="LinearOpMode")
 
 public class Comp_TeleOp_Beta extends OpMode
 {
