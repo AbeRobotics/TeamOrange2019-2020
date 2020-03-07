@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Alpha(FOUNDATION RED - EXPERIMENTAL)", group="Autonomous")
+@Autonomous(name="Alpha(Red Foundation Bridge - NO DELAY)", group="Autonomous")
 public class Auto_Alpha_8 extends AutoTasks_Alpha
 {
     @Override
@@ -13,6 +13,6 @@ public class Auto_Alpha_8 extends AutoTasks_Alpha
         waitForStart();
         resetTime();
 
-        foundationMove(RobotTeam.RedRight);
+        expFoundationMove(RobotTeam.RedRight, false, true);
     }
 }

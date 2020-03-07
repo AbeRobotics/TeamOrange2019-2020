@@ -7,54 +7,80 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
     private void moveToObject() {encoderDrive2Wheel(forward,17,17,4);}
 
-    public void foundationMove(RobotTeam team)
+    public void expFoundationMove(RobotTeam team, boolean delay, boolean extraMove)
     {
+        if (delay) { sleep(7000); }
+
         switch (team)
         {
             case BlueLeft:
                 moveSideways(left, 500);
                 break;
             case RedRight:
-                moveSideways(right, 500);
+                moveSideways(right, 350);
                 break;
         }
 
         moveToObject();
 
-        sleep(1000);
+        sleep(500);
         setDraggerPosition(down);
         sleep(500);
 
-        encoderDrive2Wheel(forward,-17,-17,4); //Extra distance needed due dragging foundation
+        encoderDrive2Wheel(forward,-15,-15,4); //Extra distance needed due dragging foundation
 
         //To correct build platform alignment
         switch (team)
         {
 
             case BlueLeft:
-                encoderDrive2Wheel(forward, 12, -12, 3); //To correct building platform
-                sleep(1000);
-                //moveSideways(left, 1500);
-                encoderDrive2Wheel(left,10,10,4);
-                sleep(1000);
+                encoderDrive2Wheel(forward, -20,20, 3);
+                sleep(500);
+                encoderDrive2Wheel(forward,7,7,3);//To correct building platform
                 break;
             case RedRight:
-                encoderDrive2Wheel(forward, -12, 12, 3); //To correct building platform
-                sleep(1000);
-                //moveSideways(right, 1500);
-                encoderDrive2Wheel(right,10,10,4);
-                sleep(1000);
+                encoderDrive2Wheel(forward, 21, -21, 3);
+                sleep(500);
+                moveSideways(left,200);
+                sleep(300);
+                encoderDrive2Wheel(forward,7,7,3);//To correct building platform
                 break;
         }
-
-        sleep(1000);
-
-        ServoPosition open = ServoPosition.Open;
-        setClawPosition(open);
-
         sleep(500);
+        setDraggerPosition(open);
+        sleep(500);
+        encoderDrive2Wheel(forward,-2,-2,2);
+        setClawPosition(open);
+        sleep(300);
 
-        encoderDrive2Wheel(forward,-10,-10,4);
+        if (extraMove)
+        {
+            switch (team)
+            {
+                case BlueLeft:
+                    moveSideways(right, 700);
+                    sleep(300);
+                    break;
+                case RedRight:
+                    moveSideways(left, 975);
+                    sleep(300);
+                    break;
+            }
+        }
+        else
+        {
+            switch (team)
+            {
+                case BlueLeft:
+                    moveSideways(left,500);
+                    break;
+                case RedRight:
+                    moveSideways(right,400);
+                    break;
+            }
+        }
+
+        encoderDrive2Wheel(forward,-16,-16,3);
     }
 
     public void foundationMoveBasic(RobotTeam team)
@@ -120,19 +146,21 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         switch (team)
         {
             case RedRight:
-                moveSideways(left, 2600); //Added -Devin
+                moveSideways(left, 2400); //Added -Devin
                 //encoderDrive2Wheel(left,10,10,5); //Commented Out to test -Devin
                 break;
             case BlueLeft:
-                moveSideways(right, 2600); //Added -Devin
+                moveSideways(right, 2400); //Added -Devin
                 //encoderDrive2Wheel(right,10,10,5); //Commented Out to test -Devin
                 break;
         }
     }
 
-    public void lineMove(RobotTeam team)
+    public void lineMove(RobotTeam team, boolean delay, boolean extraMove) //for boolean extraMove, true for bridge park and false for wall park
     {
-        encoderDrive2Wheel(forward,1,1,1);
+        if (delay) { sleep(10000); }
+
+        if (extraMove) { encoderDrive2Wheel(forward,14,14,3); }
 
         switch (team)
         {

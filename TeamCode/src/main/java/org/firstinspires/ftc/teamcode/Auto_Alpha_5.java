@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Alpha(PARK BLUE)", group="Autonomous")
+@Autonomous(name="Alpha(Blue Park Wall, NO DELAY)", group="Autonomous")
 public class Auto_Alpha_5 extends AutoTasks_Alpha
 {
     @Override
@@ -13,6 +13,6 @@ public class Auto_Alpha_5 extends AutoTasks_Alpha
         waitForStart();
         resetTime();
 
-        lineMove(blueRight);
+        lineMove(blueRight,false,false);
     }
 }
