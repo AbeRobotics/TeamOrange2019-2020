@@ -12,49 +12,38 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         switch (team)
         {
             case BlueLeft:
-                moveSideways(left, 600);
+                moveSideways(left, 500);
                 break;
             case RedRight:
-                moveSideways(right, 600);
+                moveSideways(right, 500);
                 break;
         }
 
-        encoderDrive2Wheel(forward,17,17,4);
+        moveToObject();
 
         sleep(1000);
         setDraggerPosition(down);
         sleep(500);
 
-        encoderDrive2Wheel(forward,-20,-20,3); //Extra distance needed due dragging foundation
+        encoderDrive2Wheel(forward,-17,-17,4); //Extra distance needed due dragging foundation
 
         //To correct build platform alignment
         switch (team)
         {
 
             case BlueLeft:
-                encoderDrive2Wheel(forward, -2, 2, 3); //To correct building platform
+                encoderDrive2Wheel(forward, 12, -12, 3); //To correct building platform
                 sleep(1000);
-                //moveSideways(right, 400);
-                encoderDrive2Wheel(right,5,5,3);
+                //moveSideways(left, 1500);
+                encoderDrive2Wheel(left,10,10,4);
                 sleep(1000);
-                encoderDrive2Wheel(forward, -2, 2, 3); //To correct building platform
-                sleep(1000);
-                setDraggerPosition(up);
-                sleep(1000);
-                encoderDrive2Wheel(forward, 2, -2, 3); //To correct building platform
                 break;
             case RedRight:
-                //encoderDrive2Wheel(right,2,2,2);
-                encoderDrive2Wheel(forward, 2, -2, 3); //To correct building platform
+                encoderDrive2Wheel(forward, -12, 12, 3); //To correct building platform
                 sleep(1000);
-                //moveSideways(left, 400);
-                encoderDrive2Wheel(left,5,5,3);
+                //moveSideways(right, 1500);
+                encoderDrive2Wheel(right,10,10,4);
                 sleep(1000);
-                encoderDrive2Wheel(forward, 2, -2, 3); //To correct building platform
-                sleep(1000);
-                setDraggerPosition(up);
-                sleep(1000);
-                encoderDrive2Wheel(forward, -2, 2, 3);
                 break;
         }
 
@@ -63,17 +52,9 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
         ServoPosition open = ServoPosition.Open;
         setClawPosition(open);
 
-        switch (team)
-        {
-            case RedRight:
-                //moveSideways(left, 2600); //Added -Devin
-                encoderDrive2Wheel(left,5,5,3);
-                break;
-            case BlueLeft:
-                //moveSideways(right, 2600); //Added -Devin
-                encoderDrive2Wheel(right,5,5,3);
-                break;
-        }
+        sleep(500);
+
+        encoderDrive2Wheel(forward,-10,-10,4);
     }
 
     public void foundationMoveBasic(RobotTeam team)
@@ -173,9 +154,9 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
     public void armTest()
     {
         encoderArmDrive(ArmMovement.Up, 180,5);
-        moveWrist(ArmMovement.Down,3000);
+        moveWrist(ArmMovement.Down,1000);
         encoderArmDrive(ArmMovement.Up, 40,3);
-
+        setClawPosition(closed);
     }
 
     public void blockMove()
