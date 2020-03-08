@@ -9,7 +9,7 @@ public abstract class AutoTasks_Alpha extends AutoMethods_Alpha
 
     public void expFoundationMove(RobotTeam team, boolean delay, boolean extraMove)
     {
-        if (delay) { sleep(7000); }
+        if (delay) { sleep(10000); }
 
         switch (team)
         {

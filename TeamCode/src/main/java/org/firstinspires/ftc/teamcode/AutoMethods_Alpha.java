@@ -24,9 +24,11 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
     private final float values[] = hsvValues;
 
+    /*
     private BNO055IMU imu;
 
     private Orientation lastAngles = new Orientation();
+    */
 
     private double globalAngle, correction, wheelPower = 1, armPower = 1;
 
@@ -85,6 +87,9 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
     public void activate() //Initialize all motors, servos and sensors
     {
+        telemetry.addData("SYSTEMS", "initializing...");
+        telemetry.update();
+
         runTime = new ElapsedTime();
         encoderRunTime = new ElapsedTime();
 
@@ -109,6 +114,7 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
 
         colorSensor = hardwareMap.get(ColorSensor.class, "sensor_color");
 
+        /*
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
         parameters.mode                = BNO055IMU.SensorMode.IMU;
@@ -125,6 +131,10 @@ public abstract class AutoMethods_Alpha extends LinearOpMode
             sleep(100);
         }
         telemetry.addData("IMU", "calibrated.");
+        telemetry.update();
+        */
+
+        telemetry.addData("SYSTEMS", "ready.");
         telemetry.update();
     }
 

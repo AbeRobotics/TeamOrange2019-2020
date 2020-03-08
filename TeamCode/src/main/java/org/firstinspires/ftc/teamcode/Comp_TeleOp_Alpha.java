@@ -25,7 +25,7 @@ public class Comp_TeleOp_Alpha extends OpMode
     //Servo positions
     final double OPEN_CLAW = 1;
     final double CLOSED_CLAW = 0;
-    final double UP = 1;
+    final double UP = 0.85;
     final double DOWN = 0.5;
 
     //Motor powers
